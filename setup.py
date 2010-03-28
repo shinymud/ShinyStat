@@ -10,6 +10,7 @@ setup(
     author_email="jess@IncendiarySoftware.com",
     description= "A Trac plug-in that displays data retrieved from a ShinyMUD game.",
     license= "GPLv3",
+    url="http://shiny.game-host.org",
     packages=find_packages(exclude=['*.tests*']),
     entry_points = """
         [trac.plugins]

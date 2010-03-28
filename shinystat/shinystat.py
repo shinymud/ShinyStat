@@ -1,5 +1,6 @@
 import re
 import socket
+from time import strftime, localtime
 
 from genshi.builder import tag
 
@@ -29,16 +30,19 @@ class ShinyStatPlugin(Component):
     def process_request(self, req):
         data = {}
         add_stylesheet(req, 'hw/css/shinystat.css')
-        stat = self.contact_server()
-        if stat is None:
+        result = self.contact_server()
+        if result is None:
             data['game_status'] = 'offline'
         else:
             data['game_status'] = 'online'
-            if not stat:
+            players, uptime = result
+            if not players:
                 data['num_players'] = 'no'
             else:
-                data['num_players'] = len(stat)
-            data['names'] = stat
+                data['num_players'] = len(players)
+            data['names'] = players
+            data['start_date']  = strftime("%a, %d %b %Y %H:%M:%S", 
+                                           localtime(float(uptime)))
         # This tuple is for Genshi (template_name, data, content_type)
         # Without data the trac layout will not appear.
         return 'shinystat.html', data, None
@@ -76,10 +80,13 @@ class ShinyStatPlugin(Component):
             return None
             
         try:
-            result = s.recv(1024)
+            data = s.recv(1024)
         except socket.timeout:
+            # In the future we should probably return an error for when the
+            # game times-out.
             result = None
         else:
-            result = [name for name in result.split() if name]
-        return result
+            data = data.split(':')
+            names = [name.capitalize() for name in data[0].split(',') if name]
+        return names, data[1]
     
