@@ -1,0 +1,30 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>ShinyMUD Statistics</title>
+  </head>
+
+  <body>
+    <div id="ctxtnav" class="nav"></div>
+
+    <div id="content" class="helloworld">
+      <h1>ShinyMUD Statistics</h1>
+		<div id="game_status">
+			The ShinyMUD server is currently:
+			<span><img src="${href.chrome('/hw/images/' + game_status + '.png')}"/>
+			<span id="status_text">${game_status}</span></span>
+		</div>
+		<div id="current_players" py:if="game_status == 'online'">
+			<h2>There are ${num_players} player(s) logged into ShinyMUD.</h2>
+			<ul py:if="names">
+			  <li py:for="name in names">${name}</li>
+			</ul>
+		</div>
+    </div>
+  </body>
+</html>
