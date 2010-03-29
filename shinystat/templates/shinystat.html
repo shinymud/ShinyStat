@@ -12,19 +12,18 @@
   <body>
     <div id="ctxtnav" class="nav"></div>
 
-    <div id="content" class="helloworld">
-      <h1>ShinyMUD Statistics</h1>
+    <div id="content">
 		<div id="game_status">
-			The ShinyMUD server is currently:
+			<span id="server_is_currently">The ShinyMUD server is currently:</span>
 			<span><img src="${href.chrome('/hw/images/' + game_status + '.png')}"/>
 			<span id="status_text">${game_status}</span></span>
-			<div py:if="game_status == 'online'">Up and running since ${start_date}.</div>
+			<div py:if="game_status == 'online'">Up and running since <b>${start_date}</b>.</div>
 		</div>
 		<div id="online_content" py:if="game_status == 'online'">
 			<div id="current_players">
 				<h2>There are ${num_players} player(s) logged into ShinyMUD.</h2>
 				<ul py:if="names">
-				  <li py:for="name in names">${name}</li>
+					<li py:for="name in names">${name}</li>
 				</ul>
 			</div>
 		</div>
