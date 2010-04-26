@@ -8,11 +8,13 @@ from trac.core import *
 from trac.web import IRequestHandler
 from trac.web.chrome import INavigationContributor, ITemplateProvider, add_stylesheet
 
-GAME_ROOT = '/home/shiny/shinymud/src/shinymud'
-GAME_HOST = 'shiny.game-host.org'
-PORT = 4112
+GAME_HOST = 'shiny.game-host.org' # Change this to your game-host!
+PORT = 4112 # Change this to your port number!
 
 class ShinyStatPlugin(Component):
+    """A plug-in for Trac that will connect to ShinyMUD's StatSender and display
+    the status of the game server.
+    """
     implements(INavigationContributor, ITemplateProvider, IRequestHandler)
     
     # INavigationContributor methods
