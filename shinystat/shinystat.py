@@ -8,8 +8,8 @@ from trac.core import *
 from trac.web import IRequestHandler
 from trac.web.chrome import INavigationContributor, ITemplateProvider, add_stylesheet
 
-GAME_HOST = 'shiny.game-host.org' # Change this to your game-host!
-PORT = 4112 # Change this to your port number!
+GAME_HOST = 'incendiarysoftware.com' # Change this to your game-host!
+PORT = 4112 # This is the default ShinyStat port number
 
 class ShinyStatPlugin(Component):
     """A plug-in for Trac that will connect to ShinyMUD's StatSender and display
@@ -78,17 +78,18 @@ class ShinyStatPlugin(Component):
         try:
             s.connect((GAME_HOST, PORT))
         except:
-            # If we can't, then we know the game is offline
+            # If we can't, then we know the game is offline or the host/port
+            # are wrong
             return None
-            
         try:
+            # Receive some data...
             data = s.recv(1024)
         except socket.timeout:
             # In the future we should probably return an error for when the
-            # game times-out.
-            result = None
+            # game times-out -- for now we'll just say the game is offline
+            return None
         else:
             data = data.split(':')
-            names = [name.capitalize() for name in data[0].split(',') if name]
-        return names, data[1]
+            names = [name.capitalize() for name in data[1].split(',') if name]
+        return names, data[0] # data[0] is the uptime
     
