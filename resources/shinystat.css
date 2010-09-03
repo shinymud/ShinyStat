@@ -1,0 +1,11 @@
+body {font-family: Verdana,Geneva,sans-serif; font-size:12px; line-height:normal; color: #555555;}
+img {border: none;}
+a, a:visited {color: #5C7A99; text-decoration: none;}
+a:hover {text-decoration: underline;}
+#status_img {float: left; height: 32px; width: 32px; margin: 0 10px 0 0;}
+#shiny_txt_block {float: left; padding: 5px 0 0 0;}
+#shiny_status_text {padding: 8px 0 3px 0; font-size: 14px;}
+#shiny_offline, #shiny_online {font-size: 15px; font-weight: bold;}
+#shiny_restarted, #shiny_player {padding: 3px 0 0 42px;}
+#shiny_game_status_footer {clear: both;}
+.highlight {font-weight: bold;}
